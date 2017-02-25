@@ -13,6 +13,7 @@
    :distance s/Num
    :event_time s/Num
    :location {:address s/Str
+              :line [s/Str]
               :lat s/Num
               :long s/Num}})
 
@@ -31,6 +32,7 @@
      :event_time 1487983960
      :distance 1.0
      :location {:address address
+                :line ["RED" "GOLD"]
                 :lat lat
                 :long long}}))
 
