@@ -4,7 +4,11 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [metosin/compojure-api "1.1.10"]
                  [ring/ring-defaults "0.2.3"]
-                 [ring-cors "0.1.9"]]
+                 [ring-cors "0.1.9"]
+                 [clj-http "2.3.0"]
+                 [cheshire "5.7.0"]
+                 [environ "1.1.0"]
+                 [clj-time "0.13.0"]]
   :ring {:handler malone.handler/app}
   :uberjar-name "server.jar"
   :profiles {:dev {:dependencies [[javax.servlet/javax.servlet-api "3.1.0"]]

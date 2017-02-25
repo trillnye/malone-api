@@ -15,12 +15,10 @@
               :long s/Num}})
 
 (s/defschema ItineraryRequest
-  {:start_time s/Num
-   :end_time s/Num
+  {:activities [s/Str]
    :start_point s/Str})
 
-(defn get-itinerary [start-time end-time start-point]
-  (println (str "Received " start-time end-time start-point))
+(defn get-itinerary [start-point activities]
   [{:title "First title"
                   :description "First description"
                   :event_time 1487983960
