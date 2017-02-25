@@ -55,9 +55,9 @@
             :tags ["api"]
             (POST "/itinerary" []
                   :return [ItineraryItem]
-                  :body [itenerary_request ItineraryRequest]
+                  :body [itinerary_request ItineraryRequest]
                   :summary "Generates an itinerary for a given start/end time and initial location"
-                  (ok (get-itinerary 1 1 "test"))))))
+                  (ok (get-itinerary (:start_point itinerary_request) (:activities itinerary_request)))))))
 
 (def app (-> app-routes
              (wrap-cors :access-control-allow-origin #".+"
