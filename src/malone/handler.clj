@@ -3,7 +3,7 @@
             [ring.util.http-response :refer :all]
             [schema.core :as s]))
 
-(s/defschema IteneraryItem
+(s/defschema ItineraryItem
   {:title s/Str
    :description s/Str
    :distance s/Num
@@ -12,12 +12,12 @@
               :lat s/Num
               :long s/Num}})
 
-(s/defschema IteneraryRequest
+(s/defschema ItineraryRequest
   {:start_time s/Num
    :end_time s/Num
    :start_point s/Str})
 
-(defn get-itenerary [start-time end-time start-point]
+(defn get-itinerary [start-time end-time start-point]
   (println (str "Received " start-time end-time start-point))
   [{:title "First title"
                   :description "First description"
@@ -53,8 +53,8 @@
     (context "/api" []
       :tags ["api"]
 
-      (POST "/itenerary" []
-        :return [IteneraryItem]
-        :body [itenerary_request IteneraryRequest]
-        :summary "Generates an itenerary for a given start/end time and initial location"
-        (ok (get-itenerary 1 1 "test"))))))
+      (POST "/itinerary" []
+        :return [ItineraryItem]
+        :body [itenerary_request ItineraryRequest]
+        :summary "Generates an itinerary for a given start/end time and initial location"
+        (ok (get-itinerary 1 1 "test"))))))
