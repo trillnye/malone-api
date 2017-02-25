@@ -1,7 +1,9 @@
 (ns malone.handler
   (:require [compojure.api.sweet :refer :all]
             [ring.util.http-response :refer :all]
-            [schema.core :as s]))
+            [schema.core :as s]
+            [ring.middleware.cors :refer [wrap-cors]]
+            [ring.middleware.defaults :refer [wrap-defaults api-defaults site-defaults]]))
 
 (s/defschema ItineraryItem
   {:title s/Str
@@ -41,20 +43,25 @@
                              :lat 3333.33333
                              :long -3333.33333}}])
 
-(def app
+
+(defroutes app-routes
   (api
-    {:swagger
-     {:ui "/"
-      :spec "/swagger.json"
-      :data {:info {:title "Malone"
-                    :description "Malone API"}
-             :tags [{:name "api", :description "Malone APIs"}]}}}
+   {:swagger
+    {:ui "/"
+     :spec "/swagger.json"
+     :data {:info {:title "Malone"
+                   :description "Malone API"}
+            :tags [{:name "api", :description "Malone APIs"}]}}}
 
-    (context "/api" []
-      :tags ["api"]
+   (context "/api" []
+            :tags ["api"]
+            (POST "/itinerary" []
+                  :return [ItineraryItem]
+                  :body [itenerary_request ItineraryRequest]
+                  :summary "Generates an itinerary for a given start/end time and initial location"
+                  (ok (get-itinerary 1 1 "test"))))))
 
-      (POST "/itinerary" []
-        :return [ItineraryItem]
-        :body [itenerary_request ItineraryRequest]
-        :summary "Generates an itinerary for a given start/end time and initial location"
-        (ok (get-itinerary 1 1 "test"))))))
+(def app (-> app-routes
+             (wrap-cors :access-control-allow-origin #".+"
+                        :access-control-allow-methods [:get :put :post :delete])
+             (wrap-defaults api-defaults)))
