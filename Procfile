@@ -1,1 +1,1 @@
-web: lein run -m malone.handler
+web: lein ring server-headless
